@@ -4,8 +4,7 @@
                 // Custom project list
                 const myProjects = [
  { name: "ForgeTrain", html_url: "https://github.com/OpenBMB/ForgeTrain" },
- { name: "MiniCPM 5", html_url: "https://github.com/OpenBMB/MiniCPM" },
- { name: "Leanabell-Prover-V2", html_url: "https://github.com/Leanabell-LM/Leanabell-Prover-V2" }
+ { name: "MiniCPM 5", html_url: "https://github.com/OpenBMB/MiniCPM" }
 ];
 
                 function initTagCloud(projects) {

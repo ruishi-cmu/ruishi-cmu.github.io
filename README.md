@@ -18,7 +18,7 @@ Then open http://127.0.0.1:4000/.
 
 ## Editing
 
-- `index.html` contains the biography, 21 news events, 7 publications and manuscripts, education, research and internships, projects, and academic service.
+- `index.html` contains the biography, 19 news events, 7 publications and manuscripts, education, research and internships, projects, and academic service.
 - `stylesheet.css` starts with the reference stylesheet and its publication controls. The final section adds personal content styling and responsive fixes.
 - `script.js` adapts the reference project cloud and handles publication filters, author-list expansion, news expansion, active section navigation, copying the short bio, and back-to-top behavior.
 - `images/` contains the portrait, actual publication previews, repository graphics, talk cover, and original template assets.
@@ -27,7 +27,7 @@ Then open http://127.0.0.1:4000/.
 
 News is written newest first. The template's compact date-badge list shows the first three items. The button's older-event count is recalculated by JavaScript. Update its initial text when editing the news so it also reads correctly before scripts load.
 
-Publication filter tags are `self-evolving`, `rl`, and `biomedical`. Keep the corresponding `data-tags` attributes on each publication row. The page content is present in the HTML and does not depend on JavaScript or the GitHub API to load. The default All view displays four thumbnails per row on desktop and three on mobile. Selecting a thumbnail opens its original figure, author list, venue and links in a native dialog. Selecting a research category restores the detailed publication list.
+Publication filter tags are `self-evolving`, `rl`, and `biomedical`. Keep the corresponding `data-tags` attributes on each publication row. The page content is present in the HTML and does not depend on JavaScript or the GitHub API to load. The default All view displays two compact rows of figure-sized thumbnails on desktop and three columns on mobile. Selecting a thumbnail opens its original figure, author list, venue and links in a native dialog. Selecting a research category restores the detailed publication list.
 
 ## GitHub Pages
 
@@ -61,22 +61,26 @@ The retained `LICENSE` belongs to the previous Academic Pages implementation. At
 
 ## Layout and figure update
 
-News uses the reference template's inline date badges and shows the three newest entries. Education and Internships share two columns; Academic Reviewing and Invited Talk use the same two-column structure. Both collapse to one column on narrow screens. XM Capital Management retains a text badge at the owner's request; no unverified company logo is used.
+News uses the reference template's inline date badges and shows the three newest entries. Education and Internships share two columns; Academic Reviewing and Invited Talk use the same two-column structure. Both collapse to one column on narrow screens. XM Capital Management and its related news entries were removed at the owner's request.
 
 Publication images are extracted from the articles, not from their first pages:
 
 | Publication | Representative visual |
 | --- | --- |
 | WeAct | Figure 2, capability learning and tool-mediated inference |
-| Leanabell-Prover-V2 | Figure 1, MiniF2F benchmark comparison, from the official repository |
+| Leanabell-Prover-V2 | Figure 4, verifier-integrated theorem proving framework, extracted from the original paper |
 | MedPMC | Figure 1, data curation and multimodal model training |
 | Lite-Me-LLaMA | Table 4, supervised model comparison; the supplied manuscript contains no standalone figures |
 | Biomedical LLM Landscape | Figure 2, training corpora and domains, from the existing author manuscript, checked against the online publication record |
 | Clinical NER Context | Figure 1, sentence, section and note context |
 | NOBL | Figure 1, the hierarchical novelty taxonomy |
 
-The MiniCPM 5 project uses the repository's `assets/minicpm5/training_recipe.png`. ForgeTrain and Leanabell-Prover-V2 continue to use their official GitHub graphics.
+The MiniCPM 5 project uses the repository's original `assets/minicpm_logo.png`. The Projects section contains only ForgeTrain and MiniCPM 5, using their official GitHub logos.
 
 School and employer graphics come from NJU's university archives, HKU's official site, the CityU mark embedded in the supplied slides, ModelBest's MiniCPM repository, Kuaishou's official favicon, and Shanghai AI Lab's official header. CMU's seal is mirrored in a university-opportunity listing; Yale's shield is from the cited public logo asset. They identify the institutions in the supplied experience, not an endorsement.
 
 The site is published from the `ruishi-cmu` organization. Canonical tags, structured data, sharing metadata, robots, sitemap, and the copied bio use `https://ruishi-cmu.github.io/`. The legacy website is maintained separately as a redirect rather than transferring its repository.
+
+### Final publication artwork update
+
+The CMU full-color seal is the 600×600 original used by CMU's Multicomp course site, downloaded from `https://cmu-multicomp-lab.github.io/mmml-course/assets/img/cmu-logo.png`. Kuaishou uses the publisher's 512×512 App Store artwork, retrieved through Apple's lookup API for app 440948110. Shanghai AI Lab is listed as a standalone internship; NJU remains only in education and the independently sourced biography. Paper thumbnail frames follow the actual figure's aspect ratio to reduce blank space while retaining the complete figure.
