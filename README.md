@@ -1,96 +1,82 @@
-# Academic Pages
-**Academic Pages is a GitHub Pages template for personal and professional portfolio-oriented websites.**
+# Rui Shi's Personal Website
 
-![Academic Pages template example](images/homepage.png "Academic Pages template example")
+Academic homepage at **https://ruishi-cmu.github.io/**.
 
-# Getting Started
+Source repository: https://github.com/ruishi-cmu/ruishi-cmu.github.io. The original https://jerrysiri.github.io/ is retained as a redirect entry point, with existing public PDF downloads preserved.
 
-1. Register a GitHub account if you don't have one and confirm your e-mail (required!)
-1. Click the "Use this template" button in the top right.
-1. On the "New repository" page, enter your public repository name as "[your GitHub username].github.io", which will also be your website's URL.
-1. Set site-wide configuration and add your content.
-1. Upload any files (like PDFs, .zip files, etc.) to the `files/` directory. They will appear at https://[your GitHub username].github.io/files/example.pdf.
-1. Check status by going to the repository settings, in the "GitHub pages" section
-1. (Optional) Use the Jupyter notebooks or python scripts in the `markdown_generator` folder to generate markdown files for publications and talks from a TSV file.
+The site uses the HTML, stylesheet, publication cards, project cloud, cursor assets, and landscape footer from [w-r-s/academic-homepage-template](https://github.com/w-r-s/academic-homepage-template). It replaces the previous Academic Pages / Jekyll implementation with the reference template's static architecture. No Node, Ruby, Jekyll, package installation, or build step is required.
 
-See more info at https://academicpages.github.io/
+## Preview
 
-## Running locally
+From this directory, run:
 
-When you are initially working on your website, it is very useful to be able to preview the changes locally before pushing them to GitHub. To work locally you will need to:
-
-1. Clone the repository and made updates as detailed above.
-
-### Using a different IDE
-1. Make sure you have ruby-dev, bundler, and nodejs installed
-    
-    On most Linux distribution and [Windows Subsystem Linux](https://learn.microsoft.com/en-us/windows/wsl/about) the command is:
-    ```bash
-    sudo apt install ruby-dev ruby-bundler nodejs
-    ```
-    If you see error `Unable to locate package ruby-bundler`, `Unable to locate package nodejs `, run the following:
-    ```bash
-    sudo apt update && sudo apt upgrade -y
-    ```
-    then try run `sudo apt install ruby-dev ruby-bundler nodejs` again.
-
-    On MacOS the commands are:
-    ```bash
-    brew install ruby
-    brew install node
-    gem install bundler
-    ```
-1. Run `bundle install` to install ruby dependencies. If you get errors, delete Gemfile.lock and try again.
-
-    If you see file permission error like `Fetching bundler-2.6.3.gem ERROR:  While executing gem (Gem::FilePermissionError) You don't have write permissions for the /var/lib/gems/3.2.0 directory.` or `Bundler::PermissionError: There was an error while trying to write to /usr/local/bin.`
-    Install Gems Locally (Recommended):
-    ```bash
-    bundle config set --local path 'vendor/bundle'
-    ```
-    then try run `bundle install` again. If succeeded, you should see a folder called `vendor` and `.bundle`.
-
-1. Run `jekyll serve -l -H localhost` to generate the HTML and serve it from `localhost:4000` the local server will automatically rebuild and refresh the pages on change.
-    You may also try `bundle exec jekyll serve -l -H localhost` to ensure jekyll to use specific dependencies on your own local machine.
-
-If you are running on Linux it may be necessary to install some additional dependencies prior to being able to run locally: `sudo apt install build-essential gcc make`
-
-## Using Docker
-
-Working from a different OS, or just want to avoid installing dependencies? You can use the provided `Dockerfile` to build a container that will run the site for you if you have [Docker](https://www.docker.com/) installed.
-
-You can build and execute the container by running the following command in the repository:
-
-```bash
-chmod -R 777 .
-docker compose up
+```sh
+python3 -m http.server 4000 --bind 127.0.0.1
 ```
 
-You should now be able to access the website from `localhost:4000`.
+Then open http://127.0.0.1:4000/.
 
-### Using the DevContainer in VS Code
+## Editing
 
-If you are using [Visual Studio Code](https://code.visualstudio.com/) you can use the [Dev Container](https://code.visualstudio.com/docs/devcontainers/containers) that comes with this Repository. Normally VS Code detects that a development coontainer configuration is available and asks you if you want to use the container. If this doesn't happen you can manually start the container by **F1->DevContainer: Reopen in Container**. This restarts your VS Code in the container and automatically hosts your academic page locally on http://localhost:4000. All changes will be updated live to that page after a few seconds.
+- `index.html` contains the biography, 21 news events, 7 publications and manuscripts, education, research and internships, projects, and academic service.
+- `stylesheet.css` starts with the reference stylesheet and its publication controls. The final section adds personal content styling and responsive fixes.
+- `script.js` adapts the reference project cloud and handles publication filters, author-list expansion, news expansion, active section navigation, copying the short bio, and back-to-top behavior.
+- `images/` contains the portrait, actual publication previews, repository graphics, talk cover, and original template assets.
+- `files/Resume_SHI_Rui.pdf` is the current public resume. `files/CV_SHI_Rui.pdf` contains the same version to keep the previous download URL current.
+- `files/Modern-Agent-Self-Evolving.pdf` contains the invited-talk slides. Existing personal PDF URLs remain available.
 
-# Maintenance
+News is written newest first. The template's compact date-badge list shows the first three items. The button's older-event count is recalculated by JavaScript. Update its initial text when editing the news so it also reads correctly before scripts load.
 
-Bug reports and feature requests to the template should be [submitted via GitHub](https://github.com/academicpages/academicpages.github.io/issues/new/choose). For questions concerning how to style the template, please feel free to start a [new discussion on GitHub](https://github.com/academicpages/academicpages.github.io/discussions).
+Publication filter tags are `self-evolving`, `rl`, and `biomedical`. Keep the corresponding `data-tags` attributes on each publication row. The page content is present in the HTML and does not depend on JavaScript or the GitHub API to load. The default All view displays four thumbnails per row on desktop and three on mobile. Selecting a thumbnail opens its original figure, author list, venue and links in a native dialog. Selecting a research category restores the detailed publication list.
 
-This repository was forked (then detached) by [Stuart Geiger](https://github.com/staeiou) from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/), which is © 2016 Michael Rose and released under the MIT License (see LICENSE.md). It is currently being maintained by [Robert Zupko](https://github.com/rjzupkoii) and additional maintainers would be welcomed.
+## GitHub Pages
 
-## Bugfixes and enhancements
+The organization homepage repository is **ruishi-cmu/ruishi-cmu.github.io**. Serve the root directory of branch **main** in Settings > Pages. `.nojekyll` serves this static template directly. No custom domain or `CNAME` is needed.
 
-If you have bugfixes and enhancements that you would like to submit as a pull request, you will need to [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) this repository as opposed to using it as a template. This will also allow you to [synchronize your copy](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork) of template to your fork as well.
+The legacy repository **JerrySiRi/JerrySiRi.github.io** retains its existing publishing branch. It serves immediate static redirects to the new homepage and corresponding sections. Its existing `files/` downloads remain available so old links in resumes and papers continue to work.
 
-Unfortunately, one logistical issue with a template theme like Academic Pages that makes it a little tricky to get bug fixes and updates to the core theme. If you use this template and customize it, you will probably get merge conflicts if you attempt to synchronize. If you want to save your various .yml configuration files and markdown files, you can delete the repository and fork it again. Or you can manually patch.
+## Search discovery
 
----
-<div align="center">
-    
-![pages-build-deployment](https://github.com/academicpages/academicpages.github.io/actions/workflows/pages/pages-build-deployment/badge.svg)
-[![GitHub contributors](https://img.shields.io/github/contributors/academicpages/academicpages.github.io.svg)](https://github.com/academicpages/academicpages.github.io/graphs/contributors)
-[![GitHub release](https://img.shields.io/github/v/release/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io/releases/latest)
-[![GitHub license](https://img.shields.io/github/license/academicpages/academicpages.github.io?color=blue)](https://github.com/academicpages/academicpages.github.io/blob/master/LICENSE)
+The homepage includes a descriptive title containing “Rui Shi's Personal Website”, a description, a canonical URL, Open Graph metadata, and `WebSite`, `ProfilePage`, and `Person` structured data. `robots.txt` permits crawling and points to `sitemap.xml`. The canonical address is **https://ruishi-cmu.github.io/**.
 
-[![GitHub stars](https://img.shields.io/github/stars/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io)
-[![GitHub forks](https://img.shields.io/github/forks/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io/fork)
-</div>
+After publication, verify `https://ruishi-cmu.github.io/` in [Google Search Console](https://search.google.com/search-console/), submit `sitemap.xml`, and request indexing of the homepage. Existing profiles and future resumes should link to the new URL. No verification token is included because it must be issued for the owner's account. Titles and structured data do not guarantee indexing, ranking, or an exact search result.
+
+Google's [redirect documentation](https://developers.google.com/search/docs/crawling-indexing/301-redirects) explains the instant meta-refresh redirects used by the legacy static site. The [SEO starter guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) explains discovery and indexing.
+
+## Content sources and decisions
+
+Updated on November 15, 2026 from the supplied research resume and finance resume. The reviewer cycle is **October 2026**, as confirmed by the owner.
+
+- [WeAct](https://arxiv.org/abs/2610.26847), including the public author list and first preprint date in October 2026. ARR submission status comes from the resume.
+- [Leanabell-Prover-V2](https://arxiv.org/abs/2507.08649) and its [repository](https://github.com/Leanabell-LM/Leanabell-Prover-V2). The project graphic is the repository's `figures/teaser.png`.
+- [MedPMC](https://arxiv.org/abs/2607.07673). Its review status comes from the resume and is displayed as under review, not accepted.
+- [The Development Landscape of LLMs for Biomedical Applications](https://doi.org/10.1146/annurev-biodatasci-102224-074736), including its public author list.
+- [ForgeTrain](https://github.com/OpenBMB/ForgeTrain) and [MiniCPM](https://github.com/OpenBMB/MiniCPM). Their graphics come from the repositories' `assets/logo.png` and `assets/minicpm_logo.png`. The page describes the owner's contributions using the resume and does not claim authorship of the ForgeTrain technical report or copy changing star counts.
+- The supplied Lite-Me-LLaMA, Impact of Context, and NOBL manuscripts supply their exact titles and author lists. Lite-Me-LLaMA's AMIA 2025 status follows the latest resume. NOBL is labelled as a research manuscript rather than assigning it an unconfirmed publication venue.
+- The resume's Lite-Me-LLaMA link points to the Impact of Context PDF. The homepage instead links to the correct existing `MedLLaMA_8B.pdf` manuscript.
+- The resume's clinical-trial decomposition item points to NOBL. Its text-to-SQL and RAG contributions are included under Yale experience. It is not assigned that unrelated PDF or the author list of another public paper with a similar title.
+- The invited talk title, CityU affiliation, and March 17, 2026 date are visible on the supplied slides.
+
+The retained `LICENSE` belongs to the previous Academic Pages implementation. Attribution for the reference template and imported research assets is recorded above and on the homepage.
+
+## Layout and figure update
+
+News uses the reference template's inline date badges and shows the three newest entries. Education and Internships share two columns; Academic Reviewing and Invited Talk use the same two-column structure. Both collapse to one column on narrow screens. XM Capital Management retains a text badge at the owner's request; no unverified company logo is used.
+
+Publication images are extracted from the articles, not from their first pages:
+
+| Publication | Representative visual |
+| --- | --- |
+| WeAct | Figure 2, capability learning and tool-mediated inference |
+| Leanabell-Prover-V2 | Figure 1, MiniF2F benchmark comparison, from the official repository |
+| MedPMC | Figure 1, data curation and multimodal model training |
+| Lite-Me-LLaMA | Table 4, supervised model comparison; the supplied manuscript contains no standalone figures |
+| Biomedical LLM Landscape | Figure 2, training corpora and domains, from the existing author manuscript, checked against the online publication record |
+| Clinical NER Context | Figure 1, sentence, section and note context |
+| NOBL | Figure 1, the hierarchical novelty taxonomy |
+
+The MiniCPM 5 project uses the repository's `assets/minicpm5/training_recipe.png`. ForgeTrain and Leanabell-Prover-V2 continue to use their official GitHub graphics.
+
+School and employer graphics come from NJU's university archives, HKU's official site, the CityU mark embedded in the supplied slides, ModelBest's MiniCPM repository, Kuaishou's official favicon, and Shanghai AI Lab's official header. CMU's seal is mirrored in a university-opportunity listing; Yale's shield is from the cited public logo asset. They identify the institutions in the supplied experience, not an endorsement.
+
+The site is published from the `ruishi-cmu` organization. Canonical tags, structured data, sharing metadata, robots, sitemap, and the copied bio use `https://ruishi-cmu.github.io/`. The legacy website is maintained separately as a redirect rather than transferring its repository.
