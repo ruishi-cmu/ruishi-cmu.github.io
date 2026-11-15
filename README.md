@@ -27,7 +27,7 @@ Then open http://127.0.0.1:4000/.
 
 News is written newest first. The template's compact date-badge list shows the first three items. The button's older-event count is recalculated by JavaScript. Update its initial text when editing the news so it also reads correctly before scripts load.
 
-Publication filter tags are `self-evolving`, `rl`, and `biomedical`. Keep the corresponding `data-tags` attributes on each publication row. The page content is present in the HTML and does not depend on JavaScript or the GitHub API to load. The default All view displays two compact rows of figure-sized thumbnails on desktop and three columns on mobile. Selecting a thumbnail opens its original figure, author list, venue and links in a native dialog. Selecting a research category restores the detailed publication list.
+Publication filter tags are `self-evolving`, `rl`, and `biomedical`. Keep the corresponding `data-tags` attributes on each publication row. The page content is present in the HTML and does not depend on JavaScript or the GitHub API to load. The default All view displays a uniform four-column grid with equal-size cards on desktop and three columns on mobile. Selecting a thumbnail opens its original figure, author list, venue and links in a native dialog. Selecting a research category restores the detailed publication list.
 
 ## GitHub Pages
 
@@ -71,7 +71,7 @@ Publication images are extracted from the articles, not from their first pages:
 | Leanabell-Prover-V2 | Figure 4, verifier-integrated theorem proving framework, extracted from the original paper |
 | MedPMC | Figure 1, data curation and multimodal model training |
 | Lite-Me-LLaMA | Table 4, supervised model comparison; the supplied manuscript contains no standalone figures |
-| Biomedical LLM Landscape | Figure 2, training corpora and domains, from the existing author manuscript, checked against the online publication record |
+| Biomedical LLM Landscape | Figure 2, training corpora and domains, extracted from the publisher’s final PDF (page 11, journal page 261) |
 | Clinical NER Context | Figure 1, sentence, section and note context |
 | NOBL | Figure 1, the hierarchical novelty taxonomy |
 
@@ -83,4 +83,10 @@ The site is published from the `ruishi-cmu` organization. Canonical tags, struct
 
 ### Final publication artwork update
 
-The CMU full-color seal is the 600×600 original used by CMU's Multicomp course site, downloaded from `https://cmu-multicomp-lab.github.io/mmml-course/assets/img/cmu-logo.png`. Kuaishou uses the publisher's 512×512 App Store artwork, retrieved through Apple's lookup API for app 440948110. Shanghai AI Lab is listed as a standalone internship; NJU remains only in education and the independently sourced biography. Paper thumbnail frames follow the actual figure's aspect ratio to reduce blank space while retaining the complete figure.
+The CMU full-color seal is the 600×600 original used by CMU's Multicomp course site, downloaded from `https://cmu-multicomp-lab.github.io/mmml-course/assets/img/cmu-logo.png`. Kuaishou uses the publisher's 512×512 App Store artwork, retrieved through Apple's lookup API for app 440948110. Shanghai AI Lab is listed as a standalone internship; NJU remains only in education and the independently sourced biography. Paper thumbnail cards use matching widths, image-region heights and title-region heights so every row and column aligns. Complete scientific figures remain visible without stretching.
+
+### Published figure and alignment correction
+
+The prior biomedical-landscape thumbnail came from an earlier author manuscript. It has been replaced with Figure 2 from the publisher's final 24-page PDF, downloaded through the Annual Reviews article page. The final figure uses counts 50, 21, 15, 11 and 8, and is displayed in its original colors without a CSS color filter. The published PDF itself includes gradient shading. All-view cards now use a uniform grid and aligned title baselines.
+
+Shanghai AI Lab now uses the official site's blue artwork from `https://www.shlab.org.cn/static/img/logo_2.5957e86a.webp`, displayed on white without recoloring.
