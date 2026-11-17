@@ -1108,7 +1108,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .page-section { margin-bottom: 34px; scroll-margin-top: 24px; }
 h1, h2, h3, h4 { font-family: 'Lato', Verdana, Helvetica, sans-serif; }
 h1 { margin: 0 0 20px; font-size: 28px; font-weight: 400; text-align: center; }
-.english-name { font-family: 'Times New Roman', Times, serif; font-size: 1em; font-weight: 400; line-height: 1.2; white-space: nowrap; }
+.english-name { font-family: 'Times New Roman', Times, serif; font-size: 1.5em; font-weight: 400; line-height: 1.2; white-space: nowrap; }
 .chinese-name { display: inline-block; font-family: 'Long Cang', 'STXingkai', 'KaiTi', cursive; font-size: 1.08em; font-weight: 400; line-height: 1.2; vertical-align: baseline; white-space: nowrap; }
 .collaboration-emoticon { display: inline-block; white-space: nowrap; color: #ac6500; }
 h2 { margin: 0 0 16px; font-size: 25px; font-weight: 400; text-decoration: underline; text-decoration-color: #fba524; text-underline-offset: 5px; text-decoration-thickness: 2px; }
