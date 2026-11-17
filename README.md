@@ -20,12 +20,12 @@ Then open http://127.0.0.1:4000/.
 
 - `index.html` contains the biography, 19 news events, 7 publications and manuscripts, education, research and internships, projects, and academic service.
 - `stylesheet.css` starts with the reference stylesheet and its publication controls. The final section adds personal content styling and responsive fixes.
-- `script.js` adapts the reference project cloud and handles publication filters, author-list expansion, news expansion, active section navigation, copying the short bio, and back-to-top behavior.
+- `script.js` adapts the reference project cloud and handles publication filters, author-list expansion, news pagination, active section navigation, and back-to-top behavior.
 - `images/` contains the portrait, actual publication previews, repository graphics, talk cover, and original template assets.
 - `files/Resume_SHI_Rui.pdf` is the current public resume. `files/CV_SHI_Rui.pdf` contains the same version to keep the previous download URL current.
 - `files/Modern-Agent-Self-Evolving.pdf` contains the invited-talk slides. Existing personal PDF URLs remain available.
 
-News is written newest first. The template's compact date-badge list shows the first three items. The button's older-event count is recalculated by JavaScript. Update its initial text when editing the news so it also reads correctly before scripts load.
+News is written newest first. JavaScript groups entries into scrollable pages of three, with Previous/Next controls, a page indicator, and keyboard navigation. The viewport height follows the tallest page so text stays readable on narrow screens. The last page contains any remaining entries. All news remains readable when JavaScript is unavailable.
 
 Publication filter tags are `self-evolving`, `rl`, and `biomedical`. Keep the corresponding `data-tags` attributes on each publication row. The page content is present in the HTML and does not depend on JavaScript or the GitHub API to load. The default All view displays a uniform four-column grid with equal-size cards on desktop and three columns on mobile. Selecting a thumbnail opens its original figure, author list, venue and links in a native dialog. Selecting a research category restores the detailed publication list.
 
@@ -52,7 +52,7 @@ Updated on November 15, 2026 from the supplied research resume and finance resum
 - [MedPMC](https://arxiv.org/abs/2607.07673). Its review status comes from the resume and is displayed as under review, not accepted.
 - [The Development Landscape of LLMs for Biomedical Applications](https://doi.org/10.1146/annurev-biodatasci-102224-074736), including its public author list.
 - [ForgeTrain](https://github.com/OpenBMB/ForgeTrain) and [MiniCPM](https://github.com/OpenBMB/MiniCPM). Their graphics come from the repositories' `assets/logo.png` and `assets/minicpm_logo.png`. The page describes the owner's contributions using the resume and does not claim authorship of the ForgeTrain technical report or copy changing star counts.
-- The supplied Lite-Me-LLaMA, Impact of Context, and NOBL manuscripts supply their exact titles and author lists. Lite-Me-LLaMA's AMIA 2025 status follows the latest resume. NOBL is labelled as a research manuscript rather than assigning it an unconfirmed publication venue.
+- The supplied Lite-Me-LLaMA, Impact of Context, and NOBL manuscripts supply their exact titles and author lists. The owner's November 17, 2026 correction labels Lite-Me-LLaMA as Research manuscript · 2025 and NOBL as AMIA Annual Symposium 2025 · Late-breaking poster.
 - The resume's Lite-Me-LLaMA link points to the Impact of Context PDF. The homepage instead links to the correct existing `MedLLaMA_8B.pdf` manuscript.
 - The resume's clinical-trial decomposition item points to NOBL. Its text-to-SQL and RAG contributions are included under Yale experience. It is not assigned that unrelated PDF or the author list of another public paper with a similar title.
 - The invited talk title, CityU affiliation, and March 17, 2026 date are visible on the supplied slides.
@@ -61,7 +61,7 @@ The retained `LICENSE` belongs to the previous Academic Pages implementation. At
 
 ## Layout and figure update
 
-News uses the reference template's inline date badges and shows the three newest entries. Education and Internships share two columns; Academic Reviewing and Invited Talk use the same two-column structure. Both collapse to one column on narrow screens. XM Capital Management and its related news entries were removed at the owner's request.
+News uses the reference template's inline date badges and displays three entries per scrollable page, starting with the newest entries. Education and Internships share two columns; Academic Reviewing and Invited Talk use the same two-column structure. Both collapse to one column on narrow screens. XM Capital Management and its related news entries were removed at the owner's request.
 
 Publication images are extracted from the articles, not from their first pages:
 
@@ -90,3 +90,9 @@ The CMU full-color seal is the 600×600 original used by CMU's Multicomp course 
 The prior biomedical-landscape thumbnail came from an earlier author manuscript. It has been replaced with Figure 2 from the publisher's final 24-page PDF, downloaded through the Annual Reviews article page. The final figure uses counts 50, 21, 15, 11 and 8, and is displayed in its original colors without a CSS color filter. The published PDF itself includes gradient shading. All-view cards now use a uniform grid and aligned title baselines.
 
 Shanghai AI Lab now uses the official site's blue artwork from `https://www.shlab.org.cn/static/img/logo_2.5957e86a.webp`, displayed on white without recoloring.
+
+### Chinese name and collaboration invitation
+
+The heading includes 石睿 in a locally hosted Long Cang handwriting font. The four-character subset in `assets/fonts/long-cang/name-subset.ttf` comes from the Google Fonts text API and includes the full-width parentheses. Its SIL Open Font License is retained alongside the font. Font source: https://github.com/google/fonts/tree/main/ofl/longcang. The biography ends with a collaboration invitation linked to the public CMU email address.
+
+The English name uses Times New Roman, with Times and serif fallbacks. Internships use the same three-entry scroll pagination as News; page height responds to expanding research details. The portrait caption and bio-copy astronaut have been removed.

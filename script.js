@@ -130,7 +130,7 @@
             })();
         
 
-/* Publication filtering, news disclosure, author lists and page navigation. */
+/* Publication filtering, news pagination, author lists and page navigation. */
 (() => {
   const rows = [...document.querySelectorAll('tr[data-tags]')];
   const buttons = [...document.querySelectorAll('.tag-btn')];
@@ -162,14 +162,93 @@
     updateAuthorToggles();
   });
 
+  function paginateEntries(prefix, entries, makeContent) {
+    const viewport = document.getElementById(`${prefix}-viewport`);
+    const previous = document.getElementById(`${prefix}-prev`);
+    const next = document.getElementById(`${prefix}-next`);
+    const pageStatus = document.getElementById(`${prefix}-status`);
+    const pages = [];
+    let currentPage = 0;
+    let pageHeight = 0;
+    for (let start = 0; start < entries.length; start += 3) {
+      const page = document.createElement('div');
+      page.className = 'scroll-page';
+      page.setAttribute('role', 'group');
+      page.setAttribute('aria-label', `${prefix === 'news' ? 'News' : 'Internships'} page ${pages.length + 1} of ${Math.ceil(entries.length / 3)}`);
+      page.appendChild(makeContent(entries.slice(start, start + 3), start));
+      pages.push(page);
+    }
+    viewport.replaceChildren(...pages);
+    viewport.classList.add('paginated');
+    viewport.setAttribute('aria-describedby', `${prefix}-hint`);
+    document.getElementById(`${prefix}-controls`).hidden = false;
+
+    function updateScrollStatus() {
+      previous.disabled = currentPage === 0;
+      next.disabled = currentPage === pages.length - 1;
+      pageStatus.textContent = `${currentPage + 1} / ${pages.length}`;
+      pages.forEach((page, index) => { page.inert = index !== currentPage; });
+    }
+    function sizeScrollPages() {
+      // Measure natural text height so three complete entries fit at any width or zoom.
+      pageHeight = Math.ceil(Math.max(...pages.map(page => page.firstElementChild.getBoundingClientRect().height))) + 8;
+      viewport.style.setProperty('--scroll-page-height', `${pageHeight}px`);
+      viewport.scrollTop = currentPage * pageHeight;
+    }
+    function showScrollPage(index) {
+      currentPage = Math.max(0, Math.min(pages.length - 1, index));
+      viewport.scrollTo({ top: currentPage * pageHeight, behavior: 'instant' });
+      updateScrollStatus();
+    }
+    previous.addEventListener('click', () => showScrollPage(currentPage - 1));
+    next.addEventListener('click', () => showScrollPage(currentPage + 1));
+    viewport.addEventListener('scroll', () => {
+      const index = Math.max(0, Math.min(pages.length - 1, Math.round(viewport.scrollTop / pageHeight)));
+      if (index !== currentPage) {
+        currentPage = index;
+        updateScrollStatus();
+      }
+    }, { passive: true });
+    viewport.addEventListener('keydown', event => {
+      if (event.target !== viewport) return;
+      const destinations = { ArrowDown: currentPage + 1, PageDown: currentPage + 1,
+        ArrowUp: currentPage - 1, PageUp: currentPage - 1, Home: 0, End: pages.length - 1 };
+      if (event.key in destinations) {
+        event.preventDefault();
+        showScrollPage(destinations[event.key]);
+      }
+    });
+    sizeScrollPages();
+    updateScrollStatus();
+    document.fonts.ready.then(sizeScrollPages);
+    if ('ResizeObserver' in window) {
+      const pageObserver = new ResizeObserver(sizeScrollPages);
+      pages.forEach(page => pageObserver.observe(page.firstElementChild));
+    } else {
+      window.addEventListener('resize', sizeScrollPages, { passive: true });
+    }
+
+  }
+
   const news = document.getElementById('news-list');
-  const newsToggle = document.getElementById('news-toggle');
-  const olderCount = news.children.length - 3;
-  newsToggle.addEventListener('click', () => {
-    const expanded = news.classList.toggle('expanded');
-    newsToggle.setAttribute('aria-expanded', String(expanded));
-    newsToggle.textContent = expanded ? 'Show fewer events' : `Show ${olderCount} older events`;
-    if (!expanded) document.getElementById('news-heading').scrollIntoView({ block: 'start', behavior: 'instant' });
+  paginateEntries('news', [...news.children], (entries, start) => {
+    const list = start === 0 ? news : document.createElement('ul');
+    list.className = 'news-list';
+    list.replaceChildren(...entries);
+    return list;
+  });
+  const internships = document.getElementById('internships-table');
+  paginateEntries('internships', [...internships.tBodies[0].rows], (entries, start) => {
+    const table = document.createElement('table');
+    table.className = 'experience-table';
+    if (start === 0) table.id = 'internships-table';
+    const caption = document.createElement('caption');
+    caption.className = 'sr-only';
+    caption.textContent = `Research and internship timeline, page ${start / 3 + 1}`;
+    const body = document.createElement('tbody');
+    body.replaceChildren(...entries);
+    table.append(caption, body);
+    return table;
   });
 
   const shells = [...document.querySelectorAll('.publication-authors-shell')];
@@ -224,31 +303,7 @@
   updateNavigation();
   back.addEventListener('click', () => window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' }));
 
-  let toastTimeout;
-  document.getElementById('astronaut-btn').addEventListener('click', async () => {
-    const bio = 'Rui Shi is a master’s student in Information Technology Strategy at Carnegie Mellon University. His research focuses on continually learning and self-improving agents, agentic reinforcement learning, and biomedical foundation models. Website: https://ruishi-cmu.github.io/';
-    const toast = document.getElementById('toast');
-    try {
-      if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(bio);
-      else {
-        const textarea = document.createElement('textarea');
-        textarea.value = bio;
-        textarea.style.position = 'fixed';
-        textarea.style.opacity = '0';
-        document.body.appendChild(textarea);
-        textarea.select();
-        const copied = document.execCommand('copy');
-        textarea.remove();
-        if (!copied) throw new Error('Copy unavailable');
-      }
-      toast.textContent = 'Bio copied';
-    } catch (_) { toast.textContent = 'Copy unavailable in this browser'; }
-    toast.style.setProperty('--toast-x', '50%');
-    toast.style.setProperty('--toast-y', '90px');
-    toast.classList.add('show');
-    clearTimeout(toastTimeout);
-    toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200);
-  });
+
 })();
 
 /* Paper thumbnails reveal complete, keyboard-accessible publication details. */
